@@ -1,0 +1,51 @@
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+double convertLength(double value, string fromUnit, string toUnit) {
+    map<string, double> units = {
+        {"mm", 0.001},
+        {"cm", 0.01},
+        {"m", 1.0},
+        {"km", 1000.0},
+        {"in", 0.0254},
+        {"ft", 0.3048},
+        {"yd", 0.9144},
+        {"mi", 1609.34}
+    };
+
+    if (units.find(fromUnit) == units.end()) {
+        cout << "Unknown unit: " << fromUnit << endl;
+        return 0.0;
+    }
+
+    if (units.find(toUnit) == units.end()) {
+        cout << "Unknown unit: " << toUnit << endl;
+        return 0.0;
+    }
+
+    double conversionFactor = units[fromUnit] / units[toUnit];
+    double convertedValue = value * conversionFactor;
+    return convertedValue;
+}
+
+int main() {
+    double value;
+    string fromUnit, toUnit;
+
+    cout << "Enter the value: ";
+    cin >> value;
+    cout << "Enter the unit to convert from: ";
+    cin >> fromUnit;
+    cout << "Enter the unit to convert to: ";
+    cin >> toUnit;
+
+    double result = convertLength(value, fromUnit, toUnit);
+
+    if (result != 0.0) {
+        cout << value << " " << fromUnit << " is equal to " << result << " " << toUnit << "." << endl;
+    }
+
+    return 0;
+}
